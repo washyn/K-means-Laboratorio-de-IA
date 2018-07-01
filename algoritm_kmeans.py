@@ -210,7 +210,13 @@ def pendiente(p1,p2):
     return y/x
 
 def main_other():
-    g_datos = read_data("xclara.csv")
+    g_datos = read_data("F:\\lab de IA\\kmeans\\xclara.csv")
+    # data = g_datos.
+    x = g_datos[:,0]
+    y = g_datos[:,1]
+    plt.scatter(x, y, marker=".")
+    plt.title("Nube de puntos")
+    plt.show()
     k = 3
     # centroides, clusters, costo = kmeans(g_datos,k)
     x = []
@@ -240,6 +246,9 @@ def main_other():
     # ver pendientes para cada 2 puntos y en cual de las pendientes varia mas
     
     plt.plot(x,y)
+    plt.title("Valor de K vs funcion costo")
+    plt.xlabel("Numero de clusters K")
+    plt.ylabel("Valor de funcion costo: J(c,u)")
     plt.grid()
     plt.show()
 
