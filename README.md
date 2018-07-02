@@ -4,3 +4,6 @@ Tarea de curso laboratorio de IA
 - Implementacion de la funcion costo
 - Implementacion de Elbow
 - Implementacion de metodos para determinar el valor de K(cantidad de grupos)
+
+Todo el codigo esta en el archivo **algoritm_kmeans.py**
+El archivo de datos que se usa es **exclara.csv**
