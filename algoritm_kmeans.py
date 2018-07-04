@@ -38,6 +38,7 @@ def get_clusters(datos, indices_d_grupos):
 
 
 # retorna el centroide de un conjunto de puntos
+# si recibe una coleccion de puntos vacia => se trata de hacer una division entre cero
 def get_centroide(puntos):
     cantidad_de_datos = len(puntos)
     x,y = 0,0
@@ -83,7 +84,7 @@ def read_data(fname, head = True):
 
 # selecciona valores aleatorios de data que seran centroides iniciales
 def get_rand_centroids(data, k):
-    return np.array([data[random.randint(0,len(data))]  for i in range(k)])
+    return np.array([data[random.randint(0,len(data)-1)]  for i in range(k)])
 
 
 
@@ -209,14 +210,33 @@ def pendiente(p1,p2):
     x,y = p1[0] - p2[0], p1[1] - p2[1]
     return y/x
 
+def mostrar_puntos(g_datos):
+    x = g_datos[:,0]
+    y = g_datos[:,1]
+    plt.scatter(x, y, marker="x")
+    plt.title("Nube de puntos")
+    plt.grid()
+    plt.show()
+
+
+def mostrar_f_costo(x,y):
+    plt.plot(x,y)
+    plt.title("Valor de K vs funcion costo")
+    plt.xlabel("Numero de clusters K")
+    plt.ylabel("Valor de funcion costo: J(c,u)")
+    plt.grid()
+    plt.show()
+
+
 def main_other():
-    g_datos = read_data("xclara.csv")
-    k = 3
+    g_datos = read_data("F:\\lab de IA\\kmeans\\xclara.csv")
+    mostrar_puntos(g_datos)
+    k = None
     # centroides, clusters, costo = kmeans(g_datos,k)
     x = []
     y = []
     d = []
-    numero_de_pruebas_k = 10
+    numero_de_pruebas_k = 4
     for i in range(numero_de_pruebas_k):
         k = i+1
         result = kmeans(g_datos, k)
@@ -231,31 +251,26 @@ def main_other():
     # diffs = [[pendientes[i][0] - pendientes[i+1][0], pendientes[i+1][1]] for i in range(len(pendientes)-1)]
     diffs = [math.fabs(pendientes[i][0] - pendientes[i+1][0]) for i in range(len(pendientes)-1)]
     ind_m = diffs.index(max(diffs))
-    print(pendientes)
-    print(diffs)
+    # print(pendientes)
+    # print(diffs)
     # print(ind_m+1)
     # print(d[ind_m+1][0])
     print("el optimo k es -> ",x[ind_m+1])
     # en cual de los ... se dobla mas el ...
     # ver pendientes para cada 2 puntos y en cual de las pendientes varia mas
-    
-    plt.plot(x,y)
-    plt.grid()
-    plt.show()
-
+    mostrar_f_costo(x,y)
     # print(centroides)
     # print(costo)
 
+    # g_new_centroides, get_clusters(data, g_grupos), valor_de_costo
+    centroides, clusters, valor_de_costo = kmeans(g_datos, x[ind_m+1])
+    print("Centroides: ")
+    for i in centroides:
+        print(i)
+    # no se muestra los clusters porque son bastantes datos para mostrar por consola
+    # for i in clusters:
+    #     print(i)
 
-
-# public static double angleBetweenTwoPointsWithFixedPoint(
-#         double p_1X, double p_1Y, 
-#         double p_2X, double p_2Y, 
-#         double fix_X, double fix_Y)
-
-#     double angle1 = Math.atan2(p_1Y - fix_Y, p_1X - fix_X);
-#     double angle2 = Math.atan2(p_2Y - fix_Y, p_2X - fix_X);
-#     return angle1 - angle2; 
 
 
 def angulo_entre_3_puntos(p1,p2,fix):
@@ -272,7 +287,6 @@ def elbow(data):
     
 
 # EL PROGRAMA MOSTRARA LOS CENTROIDES Y LOS K GRUPOS PARA UN K
-
 def get_k_for_data(data):
     return None
 
