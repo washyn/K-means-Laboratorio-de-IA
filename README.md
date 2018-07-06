@@ -1,6 +1,8 @@
 # K-means-Laboratorio-de-IA
 ---
 ![Funcion costo](Figure_1.png)
+![Funcion costo](Figure_2.png)
+
 Tarea de curso laboratorio de IA
 - Implementacion del algoritmo k-means
 - Implementacion de la funcion costo
